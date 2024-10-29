@@ -1,4 +1,4 @@
-package com.example.lista1;
+package com.example.lista_1;
 
 import android.os.Bundle;
 import android.view.View;
@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     int questionNum = 0;
     int points = 0;
+    int progress = 0;
 
     String q[][] = {
             {"What is the capital of France?", "Berlin", "Madrid", "Paris", "Rome", "Paris"},
@@ -68,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
                 questionNum++;
                 if (questionNum < q.length) {
                     loadQuestion(questionNum);
+                    progress = progress + 10;
+                    mainBar.setProgress(progress);
                     mainText.setText("Question " + (questionNum + 1) + "/10");
                 } else {
                     mainText.setText("Congratulations! Your result: " + points + " pt");
