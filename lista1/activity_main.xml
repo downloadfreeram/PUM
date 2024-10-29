@@ -10,7 +10,7 @@
         android:id="@+id/mainText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Pytanie 1/10"
+        android:text="Question 1/10"
         android:layout_marginTop="50dp"
         android:textSize="36dp"
         android:gravity="center" />
