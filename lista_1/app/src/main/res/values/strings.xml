@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">lista_1</string>
+    <color name="gray">#AAAAAA</color>
+    <color name="lightgray">#CCCCCC</color>
+</resources>
