@@ -9,7 +9,12 @@ public class FragmentADirections {
   }
 
   @NonNull
-  public static NavDirections toFragmentB() {
-    return new ActionOnlyNavDirections(R.id.to_fragmentB);
+  public static NavDirections actionFragmentAToFragmentB() {
+    return new ActionOnlyNavDirections(R.id.action_fragmentA_to_fragmentB);
+  }
+
+  @NonNull
+  public static NavDirections actionFragmentAToFragmentC() {
+    return new ActionOnlyNavDirections(R.id.action_fragmentA_to_fragmentC);
   }
 }

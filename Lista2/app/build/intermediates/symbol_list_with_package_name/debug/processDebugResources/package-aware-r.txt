@@ -3203,6 +3203,14 @@ id action_bar_title
 id action_container
 id action_context_bar
 id action_divider
+id action_fragmentA_to_fragmentB
+id action_fragmentA_to_fragmentC
+id action_fragmentB_to_fragmentA
+id action_fragmentB_to_fragmentC
+id action_fragmentC_to_fragmentA
+id action_fragmentC_to_fragmentB
+id action_fragmentC_to_fragmentD
+id action_fragmentD_to_fragmentA
 id action_image
 id action_menu_divider
 id action_menu_presenter
@@ -3326,8 +3334,6 @@ id escape
 id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
-id fabA
-id fabB
 id fade
 id fill
 id fill_horizontal
@@ -3344,7 +3350,9 @@ id floating
 id forever
 id fragmentA
 id fragmentB
+id fragmentC
 id fragmentContainerView
+id fragmentD
 id fragment_container_view_tag
 id frost
 id fullscreen_header
@@ -3390,6 +3398,8 @@ id linear
 id listMode
 id list_item
 id locale
+id login
+id logout
 id ltr
 id m3_side_sheet
 id main
@@ -3513,6 +3523,7 @@ id progress_horizontal
 id radio
 id ratio
 id rectangles
+id register
 id report_drawn
 id reverseSawtooth
 id right
@@ -3619,8 +3630,6 @@ id time
 id title
 id titleDividerNoCustom
 id title_template
-id to_fragmentA
-id to_fragmentB
 id toggle
 id top
 id topPanel
@@ -3793,6 +3802,8 @@ layout design_text_input_end_icon
 layout design_text_input_start_icon
 layout fragment_a
 layout fragment_b
+layout fragment_c
+layout fragment_d
 layout ime_base_split_test_activity
 layout ime_secondary_split_test_activity
 layout m3_alert_dialog

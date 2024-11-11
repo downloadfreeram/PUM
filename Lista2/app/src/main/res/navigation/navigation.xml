@@ -11,8 +11,11 @@
         android:label="fragment_a"
         tools:layout="@layout/fragment_a" >
         <action
-            android:id="@+id/to_fragmentB"
+            android:id="@+id/action_fragmentA_to_fragmentB"
             app:destination="@id/fragmentB" />
+        <action
+            android:id="@+id/action_fragmentA_to_fragmentC"
+            app:destination="@id/fragmentC" />
     </fragment>
     <fragment
         android:id="@+id/fragmentB"
@@ -20,7 +23,34 @@
         android:label="fragment_b"
         tools:layout="@layout/fragment_b" >
         <action
-            android:id="@+id/to_fragmentA"
+            android:id="@+id/action_fragmentB_to_fragmentC"
+            app:destination="@id/fragmentC" />
+        <action
+            android:id="@+id/action_fragmentB_to_fragmentA"
+            app:destination="@id/fragmentA" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentC"
+        android:name="com.example.lista2.FragmentC"
+        android:label="fragment_c"
+        tools:layout="@layout/fragment_c" >
+        <action
+            android:id="@+id/action_fragmentC_to_fragmentD"
+            app:destination="@id/fragmentD" />
+        <action
+            android:id="@+id/action_fragmentC_to_fragmentB"
+            app:destination="@id/fragmentB" />
+        <action
+            android:id="@+id/action_fragmentC_to_fragmentA"
+            app:destination="@id/fragmentA" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentD"
+        android:name="com.example.lista2.FragmentD"
+        android:label="fragment_d"
+        tools:layout="@layout/fragment_d" >
+        <action
+            android:id="@+id/action_fragmentD_to_fragmentA"
             app:destination="@id/fragmentA" />
     </fragment>
 </navigation>

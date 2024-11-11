@@ -7,19 +7,34 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="FRAGMENT A"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Welcome!"
         android:textColor="@color/black"
-        android:textSize="36sp"
-        android:layout_gravity="center_horizontal"
+        android:textSize="32sp"
         android:gravity="center"/>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabA"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/login"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:clickable="true"
-        android:src="@android:drawable/arrow_up_float"
-        android:contentDescription="FAB" />
+        android:shape="rectangle"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:background="#AAAAAA"
+        android:text="Login"
+        />
+
+    <Button
+        android:id="@+id/register"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:background="#AAAAAA"
+        android:text="Register"
+        />
+
+
 </FrameLayout>

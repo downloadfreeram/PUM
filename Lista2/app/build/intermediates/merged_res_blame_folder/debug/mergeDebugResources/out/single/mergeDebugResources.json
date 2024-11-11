@@ -1,5 +1,9 @@
 [
     {
+        "merged": "com.example.lista2.app-debug-43:/layout_fragment_c.xml.flat",
+        "source": "com.example.lista2.app-main-45:/layout/fragment_c.xml"
+    },
+    {
         "merged": "com.example.lista2.app-debug-43:/mipmap-hdpi_ic_launcher.webp.flat",
         "source": "com.example.lista2.app-main-45:/mipmap-hdpi/ic_launcher.webp"
     },
@@ -42,6 +46,10 @@
     {
         "merged": "com.example.lista2.app-debug-43:/drawable_ic_launcher_background.xml.flat",
         "source": "com.example.lista2.app-main-45:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "com.example.lista2.app-debug-43:/layout_fragment_d.xml.flat",
+        "source": "com.example.lista2.app-main-45:/layout/fragment_d.xml"
     },
     {
         "merged": "com.example.lista2.app-debug-43:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
