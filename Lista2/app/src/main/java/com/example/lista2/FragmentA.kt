@@ -17,12 +17,12 @@ class FragmentA : Fragment() {
     ): View {
         binding = FragmentABinding.inflate(inflater)
         binding.login.setOnClickListener {
-            val action = FragmentADirections.actionFragmentAToFragmentB()
+            val action = FragmentADirections.actionFragmentAToFragmentC()
             Navigation.findNavController(requireView()).navigate(action)
         }
         binding.register.setOnClickListener {
-            val action = FragmentADirections.actionFragmentAToFragmentC()
-            Navigation.findNavController(requireView()).navigate(action))
+            val action = FragmentADirections.actionFragmentAToFragmentB()
+            Navigation.findNavController(requireView()).navigate(action)
         }
         return binding.root
     }

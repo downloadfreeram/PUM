@@ -3330,6 +3330,7 @@ id end
 id endToStart
 id enterAlways
 id enterAlwaysCollapsed
+id error
 id escape
 id exitUntilCollapsed
 id expand_activities_button
@@ -3509,6 +3510,8 @@ id parent
 id parentPanel
 id parentRelative
 id parent_matrix
+id password
+id passwordRepeat
 id password_toggle
 id path
 id pathRelative
@@ -3612,6 +3615,7 @@ id tag_unhandled_key_listeners
 id tag_window_insets_animation_callback
 id text
 id text2
+id textBar
 id textEnd
 id textSpacerNoButtons
 id textSpacerNoTitle
@@ -3650,6 +3654,7 @@ id uniform
 id unlabeled
 id up
 id useLogo
+id username
 id vertical_only
 id view_offset_helper
 id view_transition

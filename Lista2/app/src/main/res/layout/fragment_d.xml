@@ -6,13 +6,20 @@
     tools:context=".FragmentD">
 
     <TextView
+        android:id="@+id/textBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="Welcome username"
+        android:text=""
         android:textColor="@color/black"
         android:textSize="32sp"
         android:gravity="center"/>
+    <TextView
+        android:id="@+id/error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="26dp"
+        />
     <Button
         android:id="@+id/logout"
         android:layout_width="300dp"

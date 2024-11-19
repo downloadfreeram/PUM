@@ -12,6 +12,7 @@ id action_fragmentC_to_fragmentA
 id action_fragmentC_to_fragmentB
 id action_fragmentC_to_fragmentD
 id action_fragmentD_to_fragmentA
+id error
 id fragmentA
 id fragmentB
 id fragmentC
@@ -21,7 +22,11 @@ id login
 id logout
 id main
 id navigation
+id password
+id passwordRepeat
 id register
+id textBar
+id username
 layout activity_main
 layout fragment_a
 layout fragment_b

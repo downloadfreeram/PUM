@@ -36,7 +36,7 @@
         tools:layout="@layout/fragment_c" >
         <action
             android:id="@+id/action_fragmentC_to_fragmentD"
-            app:destination="@id/fragmentD" />
+            app:destination="@id/fragmentD"/>
         <action
             android:id="@+id/action_fragmentC_to_fragmentB"
             app:destination="@id/fragmentB" />
@@ -52,5 +52,7 @@
         <action
             android:id="@+id/action_fragmentD_to_fragmentA"
             app:destination="@id/fragmentA" />
+        <argument android:name="loginText"
+            app:argType="string"/>
     </fragment>
 </navigation>

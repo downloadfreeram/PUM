@@ -3329,6 +3329,7 @@ int id end 0x7f0800b8
 int id endToStart 0x7f0800b9
 int id enterAlways 0x7f0800ba
 int id enterAlwaysCollapsed 0x7f0800bb
+int id error 0x7f080210
 int id escape 0x7f0800bc
 int id exitUntilCollapsed 0x7f0800bd
 int id expand_activities_button 0x7f0800be
@@ -3508,6 +3509,8 @@ int id parent 0x7f08016b
 int id parentPanel 0x7f08016c
 int id parentRelative 0x7f08016d
 int id parent_matrix 0x7f08016e
+int id password 0x7f080211
+int id passwordRepeat 0x7f080212
 int id password_toggle 0x7f08016f
 int id path 0x7f080170
 int id pathRelative 0x7f080171
@@ -3611,6 +3614,7 @@ int id tag_unhandled_key_listeners 0x7f0801d2
 int id tag_window_insets_animation_callback 0x7f0801d3
 int id text 0x7f0801d4
 int id text2 0x7f0801d5
+int id textBar 0x7f08020f
 int id textEnd 0x7f0801d6
 int id textSpacerNoButtons 0x7f0801d7
 int id textSpacerNoTitle 0x7f0801d8
@@ -3649,6 +3653,7 @@ int id uniform 0x7f0801f8
 int id unlabeled 0x7f0801f9
 int id up 0x7f0801fa
 int id useLogo 0x7f0801fb
+int id username 0x7f080213
 int id vertical_only 0x7f0801fc
 int id view_offset_helper 0x7f0801fd
 int id view_transition 0x7f0801fe
