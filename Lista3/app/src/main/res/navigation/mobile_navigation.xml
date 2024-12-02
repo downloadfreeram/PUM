@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_E2"
-        android:name="com.example.lista3.ui.E2.HomeFragment"
+        android:name="com.example.lista3.ui.E2.E2Fragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_e2" />
 
     <fragment
         android:id="@+id/navigation_E1"
-        android:name="com.example.lista3.ui.E1.DashboardFragment"
+        android:name="com.example.lista3.ui.E1.E1Fragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_e1" />
 
     <fragment
         android:id="@+id/navigation_E3"
-        android:name="com.example.lista3.ui.E3.NotificationsFragment"
+        android:name="com.example.lista3.ui.E3.E3Fragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_e3" />
 </navigation>

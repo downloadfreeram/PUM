@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.lista3.databinding.FragmentE2Binding
 
-class HomeFragment : Fragment() {
+class E2Fragment : Fragment() {
 
     private var _binding: FragmentE2Binding? = null
 

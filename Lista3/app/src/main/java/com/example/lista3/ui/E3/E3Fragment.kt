@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.lista3.databinding.FragmentE3Binding
 
-class NotificationsFragment : Fragment() {
+class E3Fragment : Fragment() {
 
     private var _binding: FragmentE3Binding? = null
 
