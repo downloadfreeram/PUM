@@ -8,18 +8,29 @@
     <fragment
         android:id="@+id/navigation_E2"
         android:name="com.example.lista3.ui.E2.E2Fragment"
-        android:label="@string/title_home"
+        android:label="grades"
         tools:layout="@layout/fragment_e2" />
 
     <fragment
         android:id="@+id/navigation_E1"
         android:name="com.example.lista3.ui.E1.E1Fragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_e1" />
+        android:label="taskList"
+        tools:layout="@layout/fragment_e1">
+        <action
+            android:id="@+id/action_E1_to_E3"
+            app:destination="@id/navigation_E3" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_E3"
         android:name="com.example.lista3.ui.E3.E3Fragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_e3" />
+        android:label="list"
+        tools:layout="@layout/fragment_e3">
+        <argument
+            android:name="taskDetails"
+            app:argType="string"/>
+        <argument
+            android:name="subject"
+            app:argType="string" />/>
+    </fragment>
 </navigation>

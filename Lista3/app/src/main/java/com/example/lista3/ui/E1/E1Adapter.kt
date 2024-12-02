@@ -1,18 +1,22 @@
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lista3.R
 import kotlin.random.Random
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Tasks(
     val subject: String,
     val taskName: String,
     val listCount: Int,
     val totalPoints: Int,
     val grade: Double
-)
+) : Parcelable
 
 // Generate task lists with random values
 fun generateTaskLists(): List<Tasks> {
@@ -47,7 +51,9 @@ fun generateTaskLists(): List<Tasks> {
     return taskLists
 }
 
-class TaskListAdapter(private val taskList: List<Tasks>) :
+class TaskListAdapter(private var taskList: List<Tasks>,
+                      private val listener: OnItemClickListener
+) :
     RecyclerView.Adapter<TaskListAdapter.TaskViewHolder>() {
 
     inner class TaskViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -69,7 +75,27 @@ class TaskListAdapter(private val taskList: List<Tasks>) :
         holder.listCount.text = "Number of tasks: ${task.listCount}"
         holder.taskName.text = task.taskName
         holder.grade.text = "Grade: ${task.grade}"
+
+        holder.itemView.setOnClickListener {
+            if (position != RecyclerView.NO_POSITION) {
+                listener.onItemClick(task)
+            }
+        }
     }
 
     override fun getItemCount(): Int = taskList.size
+
+    fun updateData(newTaskLists: List<Tasks>) {
+        taskList = newTaskLists
+        notifyDataSetChanged()
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(taskList: Tasks)
+    }
+
+}
+
+private fun AdapterView.OnItemClickListener.onItemClick(task: Tasks) {
+
 }
