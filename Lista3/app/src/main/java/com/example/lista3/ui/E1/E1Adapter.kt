@@ -14,7 +14,7 @@ data class Tasks(
     val grade: Double
 )
 
-// generate task lists with random values
+// Generate task lists with random values
 fun generateTaskLists(): List<Tasks> {
     val subjects = listOf("Matematyka", "PUM", "Fizyka", "Elektronika", "Algorytmy")
     // Dictionary to store each subject lists number
@@ -24,7 +24,7 @@ fun generateTaskLists(): List<Tasks> {
     for (i in 1..20) {
         val subject = subjects.random()
 
-        // Zwiększ licznik dla wybranego przedmiotu (lub zainicjalizuj go, jeśli jeszcze nie istnieje)
+        // Increment list number by one, or initialize from one
         val taskNumber = listCounters.getOrDefault(subject, 0) + 1
         listCounters[subject] = taskNumber
 

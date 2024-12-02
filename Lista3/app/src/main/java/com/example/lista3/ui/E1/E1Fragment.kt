@@ -6,11 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lista3.R
 import com.example.lista3.databinding.FragmentE1Binding
-import generateTaskLists
 
 class E1Fragment : Fragment() {
 
@@ -18,18 +18,21 @@ class E1Fragment : Fragment() {
 
     private val binding get() = _binding!!
 
+    private lateinit var viewModel: E1ViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         val view = inflater.inflate(R.layout.fragment_e1, container, false)
+        viewModel = ViewModelProvider(requireActivity())[E1ViewModel::class.java]
 
-        val taskList = generateTaskLists()
-
-        val recyclerView: RecyclerView = view.findViewById(R.id.recyclerViewE1)
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = TaskListAdapter(taskList)
+        viewModel.getTaskLists().observe(viewLifecycleOwner) { taskLists ->
+            val recyclerView: RecyclerView = view.findViewById(R.id.recyclerViewE1)
+            recyclerView.layoutManager = LinearLayoutManager(requireContext())
+            recyclerView.adapter = TaskListAdapter(taskLists)
+        }
 
         return view
     }
