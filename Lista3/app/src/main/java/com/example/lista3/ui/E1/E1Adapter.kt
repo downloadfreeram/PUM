@@ -2,13 +2,13 @@ import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lista3.R
 import kotlin.random.Random
 import kotlinx.parcelize.Parcelize
 
+// parcelize allows to pass data between components
 @Parcelize
 data class Tasks(
     val subject: String,
@@ -18,17 +18,17 @@ data class Tasks(
     val grade: Double
 ) : Parcelable
 
-// Generate task lists with random values
+// generate task lists with random values
 fun generateTaskLists(): List<Tasks> {
     val subjects = listOf("Matematyka", "PUM", "Fizyka", "Elektronika", "Algorytmy")
-    // Dictionary to store each subject lists number
+    // dictionary to store each subject lists number
     val listCounters = mutableMapOf<String, Int>()
     val taskLists = mutableListOf<Tasks>()
 
     for (i in 1..20) {
         val subject = subjects.random()
 
-        // Increment list number by one, or initialize from one
+        // increment list number by one, or initialize from one
         val taskNumber = listCounters.getOrDefault(subject, 0) + 1
         listCounters[subject] = taskNumber
 
@@ -50,12 +50,13 @@ fun generateTaskLists(): List<Tasks> {
 
     return taskLists
 }
-
+// adapter to bind task list data to a RecyclerView
 class TaskListAdapter(private var taskList: List<Tasks>,
                       private val listener: OnItemClickListener
 ) :
     RecyclerView.Adapter<TaskListAdapter.TaskViewHolder>() {
 
+    //class to hold references to the views in each item layout
     inner class TaskViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val subject: TextView = view.findViewById(R.id.subject)
         val listCount: TextView = view.findViewById(R.id.listCount)
@@ -69,6 +70,7 @@ class TaskListAdapter(private var taskList: List<Tasks>,
         return TaskViewHolder(view)
     }
 
+    // bind data to the views in the ViewHolder
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         val task = taskList[position]
         holder.subject.text = task.subject
@@ -76,6 +78,7 @@ class TaskListAdapter(private var taskList: List<Tasks>,
         holder.taskName.text = task.taskName
         holder.grade.text = "Grade: ${task.grade}"
 
+        // set a click listener for the item view
         holder.itemView.setOnClickListener {
             if (position != RecyclerView.NO_POSITION) {
                 listener.onItemClick(task)
@@ -85,8 +88,10 @@ class TaskListAdapter(private var taskList: List<Tasks>,
 
     override fun getItemCount(): Int = taskList.size
 
+    // update the data in the adapter and refresh the RecyclerView
     fun updateData(newTaskLists: List<Tasks>) {
         taskList = newTaskLists
+        // notify the adapter of data changes to refresh the UI
         notifyDataSetChanged()
     }
 
@@ -96,6 +101,4 @@ class TaskListAdapter(private var taskList: List<Tasks>,
 
 }
 
-private fun AdapterView.OnItemClickListener.onItemClick(task: Tasks) {
-
-}
+//private fun AdapterView.OnItemClickListener.onItemClick(task: Tasks) {}

@@ -31,6 +31,7 @@ class E2Fragment : Fragment() {
 
         recyclerView = view.findViewById(R.id.recyclerViewE2)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        //initialize adapter
         adapter = GradeAdapter(emptyList())
         recyclerView.adapter = adapter
 
