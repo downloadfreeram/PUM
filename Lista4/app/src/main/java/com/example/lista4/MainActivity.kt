@@ -1,5 +1,4 @@
-package com.example.Lista4
-
+package com.example.lista4
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -85,9 +84,9 @@ fun QuizApp(questions: List<Question>) {
     var questionIndex by remember { mutableIntStateOf(0) }
     var score by remember { mutableStateOf(0) }
     var progress by remember { mutableFloatStateOf(0f) }
-    val currentQuestion = questions[questionIndex]
 
     if (questionIndex < questions.size) {
+        val currentQuestion = questions[questionIndex]
         QuizScreen(
             question = currentQuestion,
             questionNumber = questionIndex + 1,
@@ -99,11 +98,7 @@ fun QuizApp(questions: List<Question>) {
                     score++
                 }
                 progress = (questionIndex + 1) / questions.size.toFloat()
-                if (questionIndex + 1 < questions.size) {
-                    questionIndex++
-                } else {
-                    progress = 1f
-                }
+                questionIndex++
             }
         )
     } else {
