@@ -91,7 +91,6 @@ fun QuizApp(questions: List<Question>) {
             question = currentQuestion,
             questionNumber = questionIndex + 1,
             totalQuestions = questions.size,
-            score = score,
             progress = progress,
             onNext = { selectedAnswer ->
                 if (selectedAnswer == currentQuestion.correctAnswer) {
@@ -111,7 +110,6 @@ fun QuizScreen(
     question: Question,
     questionNumber: Int,
     totalQuestions: Int,
-    score: Int,
     progress: Float,
     onNext: (String) -> Unit
 ) {
