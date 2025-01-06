@@ -13,7 +13,9 @@ class E1ViewModel : ViewModel() {
         val taskName: String,
         val listCount: Int,
         val totalPoints: Int,
-        val grade: Double
+        val grade: Double,
+        val numOfExercises: Int
+
     )
 
     // generate task lists with random values
@@ -35,6 +37,7 @@ class E1ViewModel : ViewModel() {
             val grade = Random.nextDouble(3.0, 5.1).let {
                 (it * 2).toInt() / 2.0
             }
+            val num = Random.nextInt(1,11)
 
             // Create a new task list entry
             val taskList = Tasks(
@@ -42,7 +45,8 @@ class E1ViewModel : ViewModel() {
                 taskName = "List $taskNumber", // Sequential list number
                 listCount = taskCount,        // Number of tasks
                 totalPoints = totalPoints,
-                grade = grade
+                grade = grade,
+                numOfExercises = num
             )
 
             taskLists.add(taskList)
@@ -55,9 +59,25 @@ class E1ViewModel : ViewModel() {
     val _taskLists: MutableLiveData<List<Tasks>> = MutableLiveData()
 
     init {
-        _taskLists.value = generateTaskLists()
+        // Initialize the data only once
+        if (_taskLists.value == null) {
+            _taskLists.value = generateTaskLists()
+        }
     }
 
     // expose the list of tasks as immutable LiveData to the UI
     fun getTaskLists(): LiveData<List<Tasks>> = _taskLists
+
+    // Function to get the summary of tasks per subject
+    fun getSubjectSummary(): Map<String, Pair<Int, Double>> {
+        val taskLists = _taskLists.value ?: return emptyMap()
+
+        // Group tasks by subject and calculate the total number of lists and average grade
+        return taskLists.groupBy { it.subject }
+            .mapValues { (_, tasks) ->
+                val totalLists = tasks.size
+                val averageGrade = tasks.map { it.grade }.average()
+                totalLists to averageGrade
+            }
+    }
 }

@@ -6,11 +6,13 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -24,6 +26,8 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -66,34 +70,37 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun AppNavigation() {
     val navController = rememberNavController()
+    val e1ViewModel: E1ViewModel = viewModel()
     Scaffold(
         bottomBar = { BottomMenu(navController) },
-        content = { BottomNavGraph(navController) }
+        content = { BottomNavGraph(navController, e1ViewModel) }
     )
 }
 
 @Composable
-fun BottomNavGraph(navController: NavHostController) {
+fun BottomNavGraph(navController: NavHostController, e1ViewModel: E1ViewModel) {
     NavHost(
         navController = navController,
         startDestination = Screens.E1Screen.route
     ) {
         composable(Screens.E1Screen.route) {
-            val viewModel: E1ViewModel = viewModel()
-            E1Screen(navController, viewModel)
+            E1Screen(navController, e1ViewModel)
         }
         composable(Screens.E2Screen.route) {
-            E2Screen()
+            E2Screen(navController, e1ViewModel)
         }
-        composable(Screens.E3Screen.route) {
-            E3Screen()
+        composable(Screens.E3Screen.route) { backStackEntry ->
+            val numOfExercises = backStackEntry.arguments?.getString("numOfExercises")?.toInt() ?: 0
+            E3Screen(numOfExercises)
         }
     }
 }
 
 sealed class Screens(val route: String) {
     data object E1Screen : Screens("e1")
-    data object E3Screen : Screens("e3")
+    data object E3Screen : Screens("e3/{numOfExercises}") {
+        fun createRoute(numOfExercises: Int):String = "e3/$numOfExercises"
+    }
     data object E2Screen : Screens("e2")
 }
 
@@ -106,6 +113,7 @@ sealed class BottomBar(
     data object E2 : BottomBar(Screens.E2Screen.route, "Grades", Icons.Default.Email)
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun E1Screen(
@@ -115,28 +123,40 @@ fun E1Screen(
     val taskLists by viewModel.getTaskLists().observeAsState(emptyList())
 
     Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        content = {
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
+        topBar = {
+            TopAppBar(
+                title = { Text("Task List", style = MaterialTheme.typography.titleLarge) },
+                colors = TopAppBarDefaults.centerAlignedTopAppBarColors()
+            )
+        },
+        content = { paddingValues -> // Use paddingValues provided by Scaffold
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues) // Apply padding here
             ) {
-                Text(
-                    text = "Task List",
-                    modifier = Modifier.padding(16.dp)
-                )
-                LazyColumn {
-                    items(taskLists) { task ->
-                        Text(
-                            text = "${task.subject}: ${task.taskName} (Grade: ${task.grade})",
-                            textAlign = TextAlign.Center,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(8.dp)
-                                .clickable {
-                                    navController.navigate(Screens.E3Screen.route)
+                if (taskLists.isEmpty()) {
+                    Text(
+                        text = "No tasks available.",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.align(Alignment.Center)
+                    )
+                } else {
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        verticalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
+                        items(taskLists) { task ->
+                            TaskCard(
+                                title = "${task.subject}: ${task.taskName}",
+                                description = "Number of Exercises: ${task.numOfExercises} (Grade: ${task.grade})",
+                                points = task.numOfExercises,
+                                onClick = {
+                                    navController.navigate(Screens.E3Screen.createRoute(task.numOfExercises))
                                 }
-                        )
+                            )
+                        }
                     }
                 }
             }
@@ -145,35 +165,135 @@ fun E1Screen(
 }
 
 
+@OptIn(ExperimentalMaterial3Api::class)
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun E2Screen() {
-    Box(
+fun E2Screen(
+    navController: NavHostController,
+    e1ViewModel: E1ViewModel
+) {
+    val subjectSummary = e1ViewModel.getSubjectSummary()
+
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Subject Summary", style = MaterialTheme.typography.titleLarge) },
+                colors = TopAppBarDefaults.centerAlignedTopAppBarColors()
+            )
+        },
+        content = { paddingValues -> // Use paddingValues provided by Scaffold
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues) // Apply padding here
+            ) {
+                if (subjectSummary.isEmpty()) {
+                    Text(
+                        text = "No subjects available.",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.align(Alignment.Center)
+                    )
+                } else {
+                    LazyColumn(
+                        verticalArrangement = Arrangement.spacedBy(12.dp),
+                        modifier = Modifier.fillMaxSize()
+                    ) {
+                        items(subjectSummary.keys.toList()) { subject ->
+                            val (totalLists, averageGrade) = subjectSummary[subject] ?: Pair(0, 0.0)
+                            SubjectSummaryCard(
+                                subject = subject.toString(),
+                                averageGrade = averageGrade,
+                                totalLists = totalLists
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    )
+}
+
+@Composable
+fun E3Screen(numOfExercises: Int) {
+    val exampleTasks = (1..numOfExercises).map { index ->
+        "Task $index" to "Lorem Ipsum..."
+    }
+
+    LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Green),
-        contentAlignment = Alignment.Center
+            .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        Text(
-            text = "Second Screen",
-            fontSize = 40.sp
-        )
+        items(exampleTasks) { (title, description) ->
+            TaskCard(title = title, description = description, points = 1, onClick = {})
+        }
     }
 }
 
 @Composable
-fun E3Screen() {
+fun TaskCard(title: String, description: String, points: Int, onClick: () -> Unit) {
     Box(
         modifier = Modifier
-            .fillMaxSize()
-            .background(Color.LightGray),
-        contentAlignment = Alignment.Center
+            .fillMaxWidth()
+            .background(MaterialTheme.colorScheme.surface, shape = MaterialTheme.shapes.medium)
+            .clickable(onClick = onClick)
+            .padding(16.dp),
+        contentAlignment = Alignment.CenterStart
     ) {
-        Text(
-            text = "Third Screen",
-            fontSize = 40.sp
-        )
+        Column {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onSurface,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+            Text(
+                text = description,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            Text(
+                text = "Points: $points",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.padding(top = 8.dp)
+            )
+        }
     }
 }
+@Composable
+fun SubjectSummaryCard(subject: String, averageGrade: Double, totalLists: Int) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(MaterialTheme.colorScheme.surface, shape = MaterialTheme.shapes.medium)
+            .padding(16.dp),
+        contentAlignment = Alignment.CenterStart
+    ) {
+        Column {
+            Text(
+                text = subject,
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onSurface,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+            Text(
+                text = "Average Grade: ${"%.2f".format(averageGrade)}",
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            Text(
+                text = "Total Lists: $totalLists",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.padding(top = 8.dp)
+            )
+        }
+    }
+}
+
 
 @Composable
 fun BottomMenu(navController: NavHostController) {
